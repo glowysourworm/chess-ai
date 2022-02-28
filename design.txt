@@ -1,0 +1,5 @@
+Chess AI Design
+---------------
+
+Overview:  Node based recursive turn analyzer using a scoring system to choose the best possible move. Choices
+           should be cached using a hash table built on the piece locations.

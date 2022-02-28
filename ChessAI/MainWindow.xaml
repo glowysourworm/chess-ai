@@ -1,0 +1,126 @@
+﻿<Window x:Class="ChessAI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:ChessAI.View"
+        xmlns:control="clr-namespace:ChessAI.Control"
+        Title="Simple Chess AI" Height="450" Width="800">
+    
+    <Border BorderBrush="LightGray"
+            BorderThickness="1">
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Chess Game Area -->
+            <Border x:Name="BoardContainer"
+                Margin="0"
+                Background="Bisque">
+                <view:BoardView x:Name="BoardCtrl" DataContext="{Binding BoardViewModel}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+
+            <!-- Control Panel -->
+            <Border Margin="0"
+                Background="Beige"
+                BorderBrush="LightGray"
+                BorderThickness="3, 0, 0, 0"
+                Grid.Column="1">
+                <StackPanel>
+                    <Grid Margin="5">
+                        <TextBlock Text="Control Panel" Margin="5, 0, 0, 0" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Separator Margin="3" BorderBrush="LightGray" BorderThickness="1" />
+
+                    <!-- AI Parameters -->
+                    <GroupBox Header="AI Parameters" BorderBrush="DarkGray" BorderThickness="1">
+
+                        <StackPanel Margin="3">
+                            
+                            <Grid Margin="2">
+                                <TextBlock Text="Search Depth" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <Slider Width="180" Minimum="1" Maximum="10" SmallChange="1" LargeChange="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Grid>
+                            
+                        </StackPanel>
+                        
+                    </GroupBox>
+                    
+                    <!-- Current Game State-->
+                    <GroupBox Header="Current Game" BorderBrush="DarkGray" BorderThickness="1">
+
+                        <StackPanel Margin="3">
+
+                            <!-- AI Depth -->
+                            <Grid Margin="2">
+                                <TextBlock Text="Last Search Depth" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBox IsReadOnly="True" FontSize="12" Width="120" TextAlignment="Right" Padding="3" Text="{Binding LastTurnDepth}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Grid>
+
+                            <!-- Turn Count -->
+                            <Grid Margin="2">
+                                <TextBlock Text="Turn Count" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBox IsReadOnly="True" FontSize="12" Width="120" TextAlignment="Right" Padding="3" Text="{Binding TurnCounter}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Grid>                            
+                            
+                            <!-- Last Turn -->
+                            <Grid Margin="2">
+                                <TextBlock Text="Last Turn" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBox IsReadOnly="True" FontSize="12" Width="120" TextAlignment="Right" Padding="3" Text="{Binding LastTurn}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Grid>
+
+                            <!-- Current Turn Side -->
+                            <Grid Margin="2">
+                                <TextBlock Text="Current Player" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBox IsReadOnly="True" FontSize="12" Width="120" TextAlignment="Right" Padding="3" Text="{Binding WhiteTurn}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            </Grid>
+
+                        </StackPanel>
+
+                    </GroupBox>
+                    
+                    <!-- Gameplay Controls -->
+                    <GroupBox Header="Gameplay Controls" BorderBrush="DarkGray" BorderThickness="1">
+
+                        <StackPanel Margin="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Command="{Binding NextTurnCommand}" Content="Next Turn" Width="80" Padding="5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <Button Command="{Binding RestartCommand}" Content="Restart!" Width="80" Padding="5" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                    </GroupBox>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Output -->
+            <Border Margin="0" 
+                    Background="DarkBlue"
+                    CornerRadius="3"
+                    Grid.Row="1" 
+                    Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="> AI Terminal" Foreground="Beige" FontSize="14" HorizontalAlignment="Left" Margin="5" />
+
+                    <control:TerminalControl x:Name="TerminalCtrl"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         Grid.Row="1"
+                                         />
+                </Grid>
+            </Border>
+        </Grid>
+        
+    </Border>
+
+</Window>
